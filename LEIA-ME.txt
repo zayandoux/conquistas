@@ -1,0 +1,147 @@
+CONQUISTAS 2027 — ZAYAN E LÉO — VERSÃO 3 — APP INSTALÁVEL
+
+O QUE ESTÁ PRONTO
+Site com layout para celular e computador; cinco metas; progresso individual
+ou compartilhado; fotos sem limite semanal; comparação entre a primeira e a última foto;
+anotações de peças e próximos passos; contas individuais e recuperação de senha.
+Agora inclui instalação no Android, instruções no iPhone e ícone ZL com troféu.
+A chave pública informada já está configurada. Não há chave secreta no site.
+
+O QUE AINDA PRECISA SER FEITO
+A estrutura do Supabase precisa ser ativada e o site precisa ser publicado.
+Não foi possível publicar nem testar a comunicação com o Supabase a partir
+deste ambiente devido às restrições de rede. As regras de conclusão, os controles de dono e a ordenação de fotos
+passaram em oito testes automatizados; a instalação passou também em 11
+testes simulados de fluxo, detecção, manifesto e proteção do cache; a interface não pôde ser
+verificada no navegador. O funcionamento com contas e fotos reais deve ser
+verificado depois da ativação.
+
+1. ATIVAR O SUPABASE
+No projeto Conquistas 2027, abra SQL Editor > New query.
+Abra Ativar_Conquistas_2027_v2.sql e copie todo o conteúdo para o editor.
+Clique Run. O script cria as tabelas, as permissões e a pasta privada de fotos.
+No resultado final, guarde os dois códigos de convite, identificados por nome.
+Cada pessoa deve usar apenas o código do seu perfil. O código não aparece
+no site. Não publique o resultado contendo os códigos.
+O script pode ser executado novamente sem apagar fotos, metas ou convites.
+Se você já executou a versão 1, execute esta versão 2 no mesmo projeto:
+ela remove a trava semanal e mantém todos os dados e caminhos antigos.
+Atualize também o site usando todos os arquivos da pasta site deste pacote.
+Se o SQL v2 já foi aplicado, não precisa executá-lo novamente para a versão 3.
+
+2. PUBLICAR O SITE
+A pasta site contém o site completo; não precisa instalar dependências.
+Nesta versão, envie TODOS os arquivos da pasta site para a mesma pasta no
+GitHub: index.html, os arquivos .js e .css, o manifesto e todas as imagens PNG.
+Somente o HTML não é suficiente para ativar a instalação do app.
+Pode ser hospedado como site estático na Vercel ou no GitHub Pages.
+No repositório usado para hospedar, publique todo o conteúdo da pasta site.
+Não envie a pasta site como uma subpasta se o site anterior estava na raiz:
+abra a pasta e envie todos os arquivos que estão dentro dela para a raiz.
+Mantenha o mesmo endereço para preservar a configuração do Supabase.
+Não é necessário publicar o SQL nem este guia.
+Na Vercel, importe o repositório e use o preset Other, sem comando de build,
+com o diretório de saída apontando para a pasta que contém index.html.
+O domínio gratuito da hospedagem é suficiente; domínio próprio é opcional.
+
+3. CONFIGURAR OS LINKS DE ACESSO
+Depois de publicar, no Supabase abra Authentication > URL Configuration.
+Em Site URL, informe o endereço HTTPS definitivo do site.
+Em Redirect URLs, adicione esse mesmo endereço com / no final.
+Salve. Use sempre o endereço publicado ao criar contas ou recuperar senhas.
+
+4. CRIAR AS DUAS CONTAS
+Cada pessoa abre o site, toca Entrar > Criar minha conta e usa seu próprio
+e-mail e sua própria senha. Se o Supabase pedir, confirme o e-mail recebido.
+Depois entre no site com a senha. Escolha Zayan ou Léo e informe o código
+do respectivo convite, obtido na etapa 1. O perfil fica vinculado àquela conta.
+Vocês não precisam compartilhar a conta administrativa do Supabase.
+O provedor padrão de e-mail do Supabase tem limites e restrições. Se os e-mails
+não chegarem, uma alternativa é criar cada usuário em Authentication > Users
+> Add user no painel, com confirmação de e-mail automática, ou configurar SMTP.
+Nesse caso, cada pessoa define suas credenciais de modo privado, sem enviá-las
+no chat. Depois ela entra no site e usa seu próprio código de convite.
+
+5. CONFERIR O FUNCIONAMENTO
+Entre em cada conta em navegadores diferentes.
+Marque o treino de apenas uma pessoa: a meta continua vermelha.
+Marque o treino da outra pessoa: a meta fica verde.
+Confira negócio compartilhado, PC e CNH individuais e comemoração compartilhada.
+Selecione três fotos na mesma data e confira se todas são salvas.
+Abra Comparar: o início e o registro mais recente devem aparecer lado a lado.
+Confira que você consegue ver as fotos e metas do amigo, mas não alterar
+o progresso dele, editar as datas das fotos dele nem excluí-las.
+Em uma foto sua, toque Editar para corrigir a data.
+Reabra em outro celular e confira os dados.
+
+COMO FUNCIONA
+Treino: não começou ou já começou por pessoa; verde somente com os dois.
+Negócio: não começamos, em progresso ou concluído, compartilhado.
+PC e CNH: não comecei, em progresso ou concluído, individual.
+Comemoração: pendente ou concluída, compartilhada.
+No painel geral, PC e CNH só contam como conquista completa quando ambos
+concluírem; dentro da meta, cada um mantém seu próprio progresso.
+Os dois podem ver as fotos e as metas individuais do amigo.
+Só o dono pode enviar ou excluir suas fotos, corrigir as datas e alterar
+o progresso e as anotações de suas próprias metas individuais.
+Negócio e comemoração continuam compartilhados e podem ser alterados pelos dois.
+Não existe limite de fotos por dia ou semana no site: o limite é o espaço
+disponível no seu plano Supabase. Você pode selecionar várias fotos por envio.
+O envio não substitui nem apaga fotos anteriores automaticamente.
+Fotos são convertidas em JPG com até 1600 pixels no maior lado e sem os
+metadados originais. A primeira e a última são ordenadas pela data da foto; se as datas forem
+iguais, a ordem de envio desempata. As fotos são carregadas por páginas
+para não truncar a galeria no limite padrão de uma consulta do banco.
+O progresso e as fotos ficam no Supabase. O navegador só guarda a sessão de
+login. As atualizações são buscadas ao abrir, ao voltar à aba e a cada 30 s
+enquanto o painel estiver aberto. Dentro de uma meta já aberta, feche e abra
+novamente para consultar alterações recém-feitas pela outra pessoa.
+
+MANUTENÇÃO
+O plano gratuito do Supabase pode pausar por baixa atividade.
+Mantenha cópias das fotos importantes e acompanhe a cota de armazenamento.
+Se alterar o projeto Supabase, atualize a URL e a Publishable key no site.
+Nunca coloque Secret key, service_role nem senha do banco no HTML.
+
+ARQUIVOS
+site/ — todos os arquivos necessários para o site e a instalação do app.
+Ativar_Conquistas_2027_v2.sql — configuração a executar no Supabase.
+LEIA-ME.txt — este guia.
+fonte/ — arquivos separados e testes para futuras alterações.
+
+INSTALAÇÃO NO ANDROID E NO IPHONE
+O botão aparece logo abaixo do cabeçalho do site.
+Android: quando o navegador disponibiliza a instalação nativa, o botão abre
+a confirmação de instalação. Caso contrário, mostra os passos pelo menu
+do Chrome: Instalar app ou Adicionar à tela inicial. O navegador controla
+a disponibilidade e o momento da instalação.
+iPhone: o botão mostra como abrir no Safari, tocar Compartilhar e escolher
+Adicionar à Tela de Início. Ative Abrir como App se aparecer e confirme Adicionar.
+Os nomes e a posição das opções podem variar com a versão do sistema.
+O ícone instalado chama-se Conquistas ZL e exibe um troféu com as letras ZL.
+A instalação precisa de hospedagem HTTPS e de todos os arquivos do pacote.
+Ao abrir pelo ícone em modo de app, o convite de instalação fica oculto.
+No Chrome, usamos a API de apps relacionados quando disponível para verificar
+se este app já está instalado. Depois da instalação nativa, o aviso também some.
+O Safari não oferece uma detecção confiável da instalação quando a pessoa
+abre novamente pelo navegador. Por isso, há o botão Já instalei, que oculta
+o aviso naquele navegador. Essa preferência não afirma detectar o sistema.
+O X fecha o aviso durante a sessão atual; Já instalei guarda a preferência.
+O link Instalar no celular no rodapé permite consultar as instruções novamente.
+Fotos e progresso continuam online. O service worker só mantém a interface
+pública; nunca intercepta nem armazena fotos privadas, tokens ou dados do Supabase.
+A consulta e a gravação do progresso precisam de conexão com a internet.
+Não foi possível testar em aparelhos reais nem publicar a versão automaticamente
+neste ambiente. Depois de publicar, teste o site em Chrome Android e Safari iPhone.
+
+COMO ATUALIZAR NO GITHUB PAGES
+1. Abra o repositório usado pelo site.
+2. Escolha Add file > Upload files.
+3. Abra a pasta site do ZIP e envie todos os arquivos dela para a mesma pasta
+   que já contém o index.html do site anterior, substituindo os nomes repetidos.
+4. Confirme em Commit changes e aguarde a publicação do GitHub Pages.
+5. Abra o endereço HTTPS no celular e atualize a página.
+6. No Android, toque Instalar no Android; no iPhone, siga as instruções do botão.
+7. Abra pelo ícone ZL e confira que o convite não aparece.
+O arquivo icon-512.png da pasta site é o ícone em alta resolução.
+A versão com margem para recorte do Android é icon-maskable-512.png.
